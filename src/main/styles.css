@@ -1,0 +1,394 @@
+@import url("../../ressources/fonts/fonts.css");
+
+/* ── Palette ── */
+:root {
+    --bg:          #080808;
+    --panel:       rgba(22, 22, 22, 0.82);
+    --panel-hi:    rgba(32, 32, 32, 0.90);
+    --accent:      #ffffff;
+    --accent-dim:  rgba(255, 255, 255, 0.10);
+    --accent-line: rgba(255, 255, 255, 0.18);
+    --text-1:      #f4f4f4;
+    --text-2:      #777777;
+    --text-3:      #444444;
+    --border:      rgba(255, 255, 255, 0.07);
+    --border-hi:   rgba(255, 255, 255, 0.16);
+    --radius:      1.2vh;
+}
+
+/* ── Base ── */
+html, body { height: 100%; overflow: hidden; margin: 0; }
+
+@keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
+
+body {
+    background-color: var(--bg);
+    user-select: none;
+    animation: pageIn 0.15s ease;
+    color: var(--text-1);
+    display: flex;
+    flex-direction: column;
+    font-family: 'outfit', system-ui, sans-serif;
+    position: relative;
+}
+
+/* ── Blurred background layer ── */
+#bgBlur {
+    position: fixed;
+    inset: -30px;
+    z-index: -1;
+    background-color: var(--bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(6px);
+}
+
+header { display: flex; flex-direction: row; align-items: center; }
+
+/* ── Glass panels ── */
+.shader {
+    background: var(--panel);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-1);
+}
+
+/* ── Layout ── */
+#contentWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 2.8vw;
+    flex: 1;
+    padding: 1.2vh 3.5vw;
+    overflow: hidden;
+}
+
+#mainContainer { display: flex; align-items: center; margin: 0; }
+
+#main {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9vh;
+}
+
+/* ── Clock ── */
+#clock {
+    font-size: 9vh;
+    padding: 0.6vh 2.5vh;
+    border-radius: var(--radius);
+    letter-spacing: 0.06em;
+    font-weight: 200;
+    margin: 0;
+    border-color: var(--border-hi);
+    background: rgba(255,255,255,0.04);
+}
+
+/* ── Hijri date ── */
+#dateLoc {
+    font-size: 2.1vh;
+    padding: 0.4vh 1.4vh;
+    border-radius: 0.8vh;
+    margin: 0;
+    color: #cccccc;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-align: center;
+}
+
+/* ── Occasion ── */
+#occasionText {
+    font-size: 1.6vh;
+    padding: 0.25vh 1.2vh;
+    border-radius: 2em;
+    color: #080808;
+    background: linear-gradient(135deg, rgba(230,230,230,0.95), rgba(255,255,255,0.92));
+    border: none;
+    font-weight: 600;
+    direction: rtl;
+    margin: 0;
+    letter-spacing: 0.02em;
+}
+
+/* ── Time until prayer ── */
+#timeLeft {
+    font-size: 3.4vh;
+    padding: 0.5vh 1.8vh;
+    border-radius: var(--radius);
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    background: rgba(255,255,255,0.04);
+    border-color: var(--border-hi);
+}
+
+/* ── Dhikr card ── */
+#dhikrContainer {
+    padding: 1vh 1.8vh 0.9vh;
+    border-radius: var(--radius);
+    text-align: center;
+    direction: rtl;
+    max-width: 46vh;
+    margin: 0;
+    background: rgba(255,255,255,0.03);
+    border-color: var(--border);
+}
+
+#dhikrDayLabel {
+    font-size: max(9px, 1.1vh);
+    color: #aaaaaa;
+    margin-bottom: 0.5vh;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+#dhikrText {
+    font-size: max(13px, 1.7vh);
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 0.7vh;
+    font-family: arabic;
+    color: var(--text-1);
+}
+
+#dhikrSpeakBtn {
+    font-size: max(11px, 1.2vh);
+    padding: 3px 16px;
+    opacity: 0.5;
+    border-radius: 2em;
+    border: 1px solid var(--border-hi);
+    color: var(--text-2);
+    background: transparent;
+    transition: opacity 0.2s, color 0.2s;
+}
+#dhikrSpeakBtn:hover { opacity: 1; color: var(--text-1); }
+#dhikrSpeakBtn.speaking { opacity: 1; outline: 1px solid var(--border-hi); }
+
+/* ── Prayer grid ── */
+.box { display: flex; flex-direction: column; align-items: center; gap: 0.9vh; user-select: text; }
+
+#prayerProgressContainer {
+    width: 100%;
+    height: 2px;
+    border-radius: 0;
+    background: rgba(255,255,255,0.06);
+    overflow: hidden;
+    margin: 0;
+}
+
+#prayerProgress {
+    background: linear-gradient(90deg, #888, #ffffff) !important;
+    transition: width 1s linear;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    width: 46vh;
+    border-radius: var(--radius);
+    clip-path: inset(0 round var(--radius));
+    margin: 0;
+    border: 1px solid var(--border);
+}
+
+.grid-item {
+    padding: 0.85vh 1.6vh;
+    font-size: 2.1vh;
+    text-align: center;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-1);
+    transition: background 0.2s;
+}
+
+.grid-container > .grid-item:nth-child(4n+1),
+.grid-container > .grid-item:nth-child(4n+2) {
+    background: rgba(255,255,255,0.018);
+}
+
+/* Round the four corner cells explicitly */
+.grid-item:nth-child(1)  { border-radius: var(--radius) 0 0 0; }
+.grid-item:nth-child(2)  { border-radius: 0 var(--radius) 0 0; }
+.grid-item:nth-last-child(1) { border-radius: 0 0 var(--radius) 0; }
+.grid-item:nth-last-child(2) { border-radius: 0 0 0 var(--radius); }
+
+.grid-top    { border-top: none; }
+.grid-bottom { border-bottom: none; }
+.left  { text-align: left; font-weight: 600; }
+.right {
+    text-align: right;
+    color: #b8b8b8;
+    font-variant-numeric: tabular-nums;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+}
+
+/* Active prayer highlight */
+.prayerActive.left  { color: #ffffff !important; font-weight: 600; }
+.prayerActive.right { color: #cccccc !important; font-weight: 500; }
+.prayerActive { background: rgba(255,255,255,0.07) !important; }
+
+/* ── Date picker ── */
+.box-bottom {
+    text-align: center;
+    padding: 0.7vh 1vh 0.6vh;
+    border-radius: var(--radius);
+    margin-top: 0.8vh;
+    width: 46vh;
+}
+
+#hijriPicker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    direction: rtl;
+}
+
+#hijriPickerDisplay {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 20vh;
+    justify-content: center;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-hi);
+    border-radius: 0.5em;
+    padding: 3px 10px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.15s, border-color 0.15s;
+}
+#hijriPickerDisplay:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.28);
+}
+
+#calendar {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 1px;
+    height: 1px;
+}
+
+#calendarIcon { font-size: max(10px, 1.2vh); color: #aaaaaa; }
+
+#hijriPickerDate {
+    font-size: max(11px, 1.4vh);
+    color: #cccccc;
+    cursor: pointer;
+    direction: rtl;
+    unicode-bidi: embed;
+    transition: color 0.15s;
+    font-weight: 400;
+}
+#hijriPickerDate:hover { color: var(--text-1); }
+
+#pickerOccasion {
+    font-size: max(10px, 1.2vh);
+    color: #aaaaaa;
+    direction: rtl;
+    padding: 2px 4px;
+    margin-top: 2px;
+    font-weight: 400;
+}
+
+#prevDayBtn, #nextDayBtn {
+    font-size: max(9px, 1.1vh);
+    padding: 3px 9px;
+    color: #aaaaaa;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 0.4em;
+    background: rgba(255,255,255,0.05);
+    transition: all 0.15s;
+}
+#prevDayBtn:hover, #nextDayBtn:hover {
+    color: var(--text-1);
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.35);
+}
+
+/* ── Footer ── */
+footer {
+    background: rgba(8, 8, 8, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 0 1.5vw;
+}
+
+#footer { width: 100%; }
+
+#upperPart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0.55vh 0;
+    gap: 4px;
+}
+
+#audioControls { display: flex; flex-direction: row; align-items: center; gap: 3px; }
+
+#stopB, #playB {
+    font-size: 13px;
+    padding: 5px 12px;
+    border-radius: 0.5em;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    color: #aaaaaa;
+    transition: all 0.15s;
+}
+#stopB:hover, #playB:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.25);
+    color: #f0f0f0;
+}
+
+#volume { margin-left: 10px; display: flex; align-items: center; gap: 6px; }
+.fa-volume-down, .fa-volume-up { font-size: max(1.5vh, 14px); color: var(--text-3); }
+.form-range { width: 80px; }
+#volSlider { margin: 0; }
+
+#buttons { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+
+#settingsWheel, #quranButton {
+    font-size: 13px;
+    padding: 5px 16px;
+    border-radius: 0.5em;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    color: #aaaaaa;
+    transition: all 0.15s;
+}
+#settingsWheel:hover, #quranButton:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.25);
+    color: #f0f0f0;
+}
+
+/* ── Header title ── */
+#title  { font-size: 2.6vh; margin: 0.2vh 0 0 8px; cursor: pointer; font-weight: 400; color: var(--text-2); }
+#tasbih { font-size: 1.6vh; margin: 1.2vh 0 0 8px; cursor: pointer; }
+
+.btn-light, .btn-light:hover { color: #121212; }
+
+/* ── Loader ── */
+.center {
+    position: absolute;
+    width: 100%; height: 100%;
+    text-align: center;
+    background-color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-1);
+    z-index: 999;
+}
