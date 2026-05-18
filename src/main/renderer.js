@@ -753,7 +753,7 @@ function setupUpdateModal(){
     modalButton2.innerText = window.api.getLanguage(lang, 'later')
 
     modalButton1.addEventListener("click", () => {
-      window.api.openExternal("https://github.com/DBChoco/Azan/releases/latest")
+      window.api.openExternal("https://github.com/BenyaminZadehmoradian/Muezzin/releases/latest")
     })
     modalButton2.addEventListener("click", () => {
       myModal.hide()

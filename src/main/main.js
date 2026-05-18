@@ -29,7 +29,7 @@ function createWindow () {
     applicationName: "Muezzin - Prayer Times",
     applicationVersion: `v${app.getVersion()}`,
     authors: ["DarkBlackChocolate"],
-    website: "https://github.com/DBChoco/Muezzin",
+    website: "https://github.com/BenyaminZadehmoradian/Muezzin",
     iconPath: path.join(__dirname, '../../ressources/images/allah.png')
   })
   
@@ -103,7 +103,7 @@ function createWindow () {
         {
           label: 'Website',
           click: async () => {
-            await shell.openExternal('https://github.com/DBChoco/Azan')
+            await shell.openExternal('https://github.com/BenyaminZadehmoradian/Muezzin')
           }
         },
         {
@@ -122,7 +122,7 @@ function createWindow () {
         {
           label: 'Report an issue',
           click: async () => {
-            await shell.openExternal('https://github.com/DBChoco/Azan/issues/new')
+            await shell.openExternal('https://github.com/BenyaminZadehmoradian/Muezzin/issues/new')
           }
         },
         {role: "about",

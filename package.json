@@ -14,7 +14,7 @@
   "icon": "ressources/images/icon.png",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DBChoco/Muezzin.git"
+    "url": "git+https://github.com/BenyaminZadehmoradian/Muezzin.git"
   },
   "keywords": [],
   "author": "DBChoco <dbchoco.muezzin@gmail.com>",
@@ -39,7 +39,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "DBChoco",
+        "owner": "BenyaminZadehmoradian",
         "repo": "Muezzin"
       }
     ],
@@ -83,7 +83,7 @@
     ]
   },
   "bugs": {
-    "url": "https://github.com/DBChoco/Muezzin/issues"
+    "url": "https://github.com/BenyaminZadehmoradian/Muezzin/issues"
   },
-  "homepage": "https://github.com/DBChoco/Muezzin"
+  "homepage": "https://github.com/BenyaminZadehmoradian/Muezzin"
 }
