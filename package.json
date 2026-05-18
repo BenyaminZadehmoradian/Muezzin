@@ -11,7 +11,7 @@
     "build": "electron-builder build --linux --win --publish never",
     "deploy": "electron-builder build --linux --win --publish always"
   },
-  "icon": "ressources/images/icon.png",
+  "icon": "ressources/images/allah.png",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BenyaminZadehmoradian/Muezzin.git"
@@ -52,7 +52,7 @@
       ]
     },
     "linux": {
-      "icon": "ressources/images/icon.png",
+      "icon": "ressources/images/allah.png",
       "category": "Utility",
       "target": [
         "AppImage",
@@ -63,7 +63,7 @@
       ]
     },
     "mac": {
-      "icon": "ressources/images/icon.png",
+      "icon": "ressources/images/allah.png",
       "category": "public.app-category.utilities",
       "target": [
         "dmg"
